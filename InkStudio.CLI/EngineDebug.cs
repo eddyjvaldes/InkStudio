@@ -14,12 +14,9 @@ namespace InkStudio.CLI
             inkEngine.DebugLexer(engineDebug, source);
         }
 
-        public void DebugLexer(string type, string lexeme, object? literal, int line)
+        public void Report(string message)
         {
-            Console.WriteLine($"type: {type}/\n"
-                             + $"lexeme: {lexeme}\n"
-                             + $"literal: {literal}\n"
-                             + $"line: {line}\n");
+            Console.WriteLine(message);
         }
     }
 }

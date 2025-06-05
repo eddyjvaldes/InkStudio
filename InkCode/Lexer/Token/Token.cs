@@ -6,5 +6,11 @@ namespace InkCode.Lexer
         readonly internal string Lexeme = lexeme;
         readonly internal object? Literal = literal;
         readonly internal int Line = line;
+
+        public override string ToString()
+        {
+            return $"type: {Type} | lexeme: {Lexeme} | literal: {Literal}"
+                        + $"| line: {Line}";
+        }
     }
 }

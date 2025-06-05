@@ -7,27 +7,27 @@ namespace InkCode.Engine
         List<Token> ScanContent(string source)
         {
             Scanner scanner = new(source, errorReporter);
-            List<Token> tokens = scanner.Scan();
-
-            return tokens;
+            return scanner.Scan();
         }
 
         public void DebugLexer(IEngineDebug engineDebug, string source)
         {
             List<Token> tokens = ScanContent(source);
 
-            DebugTokens(engineDebug, tokens);
-
+            ReportTokens(engineDebug, tokens);
             CheckErrors();
         }
 
-        static void DebugTokens(IEngineDebug engineDebug, List<Token> tokens)
+        static void ReportTokens(IEngineDebug engineDebug, List<Token> tokens)
         {
+            engineDebug.Report("Lexer: ");
+
             foreach (var token in tokens)
             {
-                engineDebug.DebugLexer(token.Type.ToString(), token.Lexeme, token.Literal
-                                        , token.Line);
+                engineDebug.Report(token.ToString());
             }
+
+            engineDebug.Report("");
         }
     }
 }

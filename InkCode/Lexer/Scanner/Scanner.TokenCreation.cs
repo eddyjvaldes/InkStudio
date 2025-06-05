@@ -19,7 +19,18 @@ namespace InkCode.Lexer
 
         void AddKeyWordToken(Token.TokenType type)
         {
-            AddToken(type, null);
+            if (type == Token.TokenType.TRUE)
+            {
+                AddToken(type, true);
+            }
+            else if (type == Token.TokenType.FALSE)
+            {
+                AddToken(type, false);
+            }
+            else
+            {
+                AddToken(type, null);
+            }
         }
 
         void AddSymbolToken(Token.TokenType type)

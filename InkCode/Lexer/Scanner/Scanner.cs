@@ -40,7 +40,6 @@ namespace InkCode.Lexer
                 case ']': AddSymbolToken(Token.TokenType.RIGHT_BRACKET); break;
                 case ',': AddSymbolToken(Token.TokenType.COMMA); break;
                 case '+': AddSymbolToken(Token.TokenType.PLUS); break;
-                case '-': AddSymbolToken(Token.TokenType.MINUS); break;
                 case '%': AddSymbolToken(Token.TokenType.PERCENT); break;
 
                 // two characters
@@ -52,8 +51,14 @@ namespace InkCode.Lexer
 
                 case '!': HandleBang(); break;
 
+                case '-':
+                    AddSymbolToken(Match('>') ? Token.TokenType.ASIGNE
+                                        : Token.TokenType.MINUS);
+                    break;
+
                 case '>':
-                    AddSymbolToken(Match('=') ? Token.TokenType.GREATER_EQUAL : Token.TokenType.GREATER);
+                    AddSymbolToken(Match('=') ? Token.TokenType.GREATER_EQUAL
+                                                : Token.TokenType.GREATER);
                     break;
 
                 case '*':

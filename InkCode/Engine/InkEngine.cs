@@ -1,5 +1,6 @@
 using InkCode.ErrorManager;
 using InkCode.Lexer;
+using InkCode.Parser;
 
 namespace InkCode.Engine
 {
@@ -23,7 +24,15 @@ namespace InkCode.Engine
 
         void Run(string source)
         {
+            List<Instruction> instructions = InterpretSource(source);
+        }
+
+        public void Debug(IEngineDebug engineDebug, string source)
+        {
             List<Token> tokens = ScanContent(source);
+            ReportTokens(engineDebug, tokens);
+
+            DebugParser(engineDebug, tokens);
         }
 
         int CheckErrors()
