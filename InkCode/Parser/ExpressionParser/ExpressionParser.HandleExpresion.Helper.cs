@@ -4,22 +4,24 @@ namespace InkCode.Parser
 {
     internal partial class ExpressionParser
     {
-        static bool IsNegativeNumber(List<Token> tokens, int lower, int upper)
+        bool IsNegativeNumber(int lower, int upper)
         {
-            return MatchIndex(tokens, lower, Token.TokenType.MINUS)
-                    && MatchIndex(tokens, upper, Token.TokenType.NUMBER);
+            return MatchIndex(lower, Token.TokenType.MINUS)
+                && MatchIndex(upper, Token.TokenType.NUMBER);
         }
 
-        static bool IsGroupingExpression(List<Token> tokens, int lower, int upper)
+        bool IsGroupingExpression(int lower, int upper)
         {
-            return MatchIndex(tokens, lower, Token.TokenType.LEFT_PAREN)
-                    && MatchIndex(tokens, upper, Token.TokenType.RIGHT_PAREN);
+            return MatchIndex(lower, Token.TokenType.LEFT_PAREN)
+                && MatchIndex(upper, Token.TokenType.RIGHT_PAREN);
         }
 
-        static bool IsFunctionCall(List<Token> tokens, int lower, int upper)
+        bool IsFunctionCall(int lower, int upper)
         {
-            if (MatchIndex(tokens, lower + 1, Token.TokenType.LEFT_PAREN)
-                && MatchIndex(tokens, upper, Token.TokenType.RIGHT_PAREN))
+            if (
+                MatchIndex(lower + 1, Token.TokenType.LEFT_PAREN)
+                && MatchIndex(upper, Token.TokenType.RIGHT_PAREN)
+            )
             {
                 switch (tokens[lower].Type)
                 {
@@ -43,7 +45,7 @@ namespace InkCode.Parser
             return false;
         }
 
-        static List<Expression>? ParseFunctionArguments(List<Token> tokens, int lower, int upper)
+        List<Expression>? ParseFunctionArguments(int lower, int upper)
         {
             List<Expression> expressions = [];
 
@@ -51,11 +53,11 @@ namespace InkCode.Parser
 
             for (int i = lower; i <= upper; i++)
             {
-                if (MatchIndex(tokens, i, Token.TokenType.COMMA))
+                if (MatchIndex(i, Token.TokenType.COMMA))
                 {
                     if (lower < i && i < upper)
                     {
-                        Expression? expression = Parse(tokens, index, i - 1);
+                        Expression? expression = Parse(index, i - 1);
 
                         index = i + 1;
 
@@ -75,7 +77,7 @@ namespace InkCode.Parser
                 }
                 else if (i == upper)
                 {
-                    Expression? expression = Parse(tokens, index, i);
+                    Expression? expression = Parse(index, i);
 
                     if (expression != null)
                     {

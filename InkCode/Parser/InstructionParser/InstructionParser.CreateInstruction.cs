@@ -1,6 +1,6 @@
 namespace InkCode.Parser
 {
-    internal partial class Interpreter
+    internal partial class InstructionParser
     {
         void AddFunctionCallInstruction(List<Expression> arg)
         {
@@ -9,8 +9,7 @@ namespace InkCode.Parser
 
         void AddAssignmentInstruction(Expression expression)
         {
-            instructions.Add(new AssignmentInstruction(PeekLexeme(), expression,
-                                                        PeekStartLine()));
+            instructions.Add(new AssignmentInstruction(PeekLexeme(), expression, PeekStartLine()));
         }
 
         void AddGotoInstruction(Expression expression, int labelLine)

@@ -9,8 +9,7 @@ namespace InkCode.Lexer
 
         public override string ToString()
         {
-            return $"type: {Type} | lexeme: {Lexeme} | literal: {Literal}"
-                        + $"| line: {Line}";
+            return $"type: {Type} | lexeme: {Lexeme} | literal: {Literal} | line: {Line}";
         }
     }
 }

@@ -2,7 +2,7 @@ using InkCode.Lexer;
 
 namespace InkCode.Parser
 {
-    internal partial class Interpreter
+    internal partial class InstructionParser
     {
         List<Expression>? ParserArguments(int lower, int upper)
         {
@@ -16,7 +16,7 @@ namespace InkCode.Parser
                 {
                     if (lower < i && i < upper)
                     {
-                        Expression? expression = ExpressionParser.Parse(tokens, index, i - 1);
+                        Expression? expression = expressionParser.Parse(index, i - 1);
 
                         index = i + 1;
 
@@ -36,7 +36,7 @@ namespace InkCode.Parser
                 }
                 else if (i == upper)
                 {
-                    Expression? expression = ExpressionParser.Parse(tokens, index, upper);
+                    Expression? expression = expressionParser.Parse(index, upper);
 
                     if (expression != null)
                     {
@@ -54,8 +54,8 @@ namespace InkCode.Parser
 
         bool CheckFunctionParenthesis()
         {
-            return MatchTypeIndex(1, Token.TokenType.LEFT_PAREN)
-                    && MatchTypeIndex(current - 1, Token.TokenType.RIGHT_PAREN);
+            return MatchTypeIndex(start + 1, Token.TokenType.LEFT_PAREN)
+                && MatchTypeIndex(current - 1, Token.TokenType.RIGHT_PAREN);
 
         }
 

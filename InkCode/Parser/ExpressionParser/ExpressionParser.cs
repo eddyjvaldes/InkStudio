@@ -2,21 +2,23 @@ using InkCode.Lexer;
 
 namespace InkCode.Parser
 {
-    internal static partial class ExpressionParser
+    internal partial class ExpressionParser(List<Token> tokens)
     {
-        internal static Expression? Parse(List<Token> args, int lower, int upper)
+        readonly List<Token> tokens = tokens;
+
+        internal Expression? Parse(int lower, int upper)
         {
-            if (AreArgumentsValid(args))
+            if (AreArgumentsValid(lower, upper))
             {
                 bool hadError = false;
 
-                return Parse(args, lower, upper, ref hadError);
+                return Parse(lower, upper, ref hadError);
             }
 
             return null;
         }
 
-        static Expression? Parse(List<Token> tokens, int lower, int upper, ref bool hadError)
+        Expression? Parse(int lower, int upper, ref bool hadError)
         {
             if (!hadError)
             {
@@ -24,27 +26,27 @@ namespace InkCode.Parser
 
                 if (length == 0)
                 {
-                    return HandleSingleExpression(tokens, lower, ref hadError);
+                    return HandleSingleExpression(lower, ref hadError);
                 }
                 else if (length == 1)
                 {
-                    return HandleNegativeNumber(tokens, lower, upper, ref hadError);
+                    return HandleNegativeNumber(lower, upper, ref hadError);
                 }
                 else if (length > 1)
                 {
-                    int index = FindLowestPrecedenceOperator(tokens, lower, upper);
+                    int index = FindLowestPrecedenceOperator(lower, upper);
 
                     if (index != -1)
                     {
-                        return HandleBinaryExpression(tokens, index, lower, upper, ref hadError);
+                        return HandleBinaryExpression(index, lower, upper, ref hadError);
                     }
-                    else if (IsGroupingExpression(tokens, lower, upper))
+                    else if (IsGroupingExpression(lower, upper))
                     {
-                        return HandleGroupingExpression(tokens, lower, upper, ref hadError);
+                        return HandleGroupingExpression(lower, upper, ref hadError);
                     }
-                    else if (IsFunctionCall(tokens, lower, upper))
+                    else if (IsFunctionCall(lower, upper))
                     {
-                        return HandleFunctionCallExpression(tokens, lower, upper, ref hadError);
+                        return HandleFunctionCallExpression(lower, upper, ref hadError);
                     }
                 }
             }

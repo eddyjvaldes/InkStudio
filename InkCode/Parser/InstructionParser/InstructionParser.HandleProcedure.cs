@@ -1,6 +1,6 @@
 namespace InkCode.Parser
 {
-    internal partial class Interpreter
+    internal partial class InstructionParser
     {
         void FindLabels()
         {
@@ -32,7 +32,7 @@ namespace InkCode.Parser
             {
                 if (!labelsCollection.ContainsKey(PeekLexeme()))
                 {
-                    Expression? args = ExpressionParser.Parse(tokens, start + 2, current - 1);
+                    Expression? args = expressionParser.Parse(start + 2, current - 1);
 
                     if (args != null)
                     {
@@ -58,7 +58,7 @@ namespace InkCode.Parser
         {
             if (IsGotoValid())
             {
-                Expression? args = ExpressionParser.Parse(tokens, start + 5, current - 2);
+                Expression? args = expressionParser.Parse(start + 5, current - 2);
 
                 if (args != null)
                 {

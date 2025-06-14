@@ -2,7 +2,7 @@ using InkCode.ErrorManager;
 
 namespace InkCode.Parser
 {
-    internal partial class Interpreter
+    internal partial class InstructionParser
     {
         void AddLabelError()
         {
@@ -21,7 +21,7 @@ namespace InkCode.Parser
 
         void AddSpawnFunctionError()
         {
-            ErrorMessage.ReportInvalidSpawnFunction(errorReporter, 0);
+            ErrorMessage.ReportInvalidSpawnFunction(errorReporter, 1);
         }
 
         void AddArgumentError()

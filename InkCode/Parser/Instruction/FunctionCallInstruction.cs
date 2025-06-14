@@ -7,8 +7,11 @@ namespace InkCode.Parser
         readonly internal Token.TokenType Function;
         internal List<Expression> Args;
 
-        internal FunctionCallInstruction(Token.TokenType function, List<Expression> args, int line)
-                                        : base(line)
+        internal FunctionCallInstruction(
+            Token.TokenType function,
+            List<Expression> args,
+            int line)
+            : base(line)
         {
             Function = function;
             Args = args;

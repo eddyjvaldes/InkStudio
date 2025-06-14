@@ -17,16 +17,21 @@ namespace InkCode.ErrorManager
             errorReporter.AddError(line, $"There is another label with the name \"{label}]\"");
         }
 
-        internal static void ReportInvalidFunction(ErrorReporter errorReporter, string function
-                                                    , int line)
+        internal static void ReportInvalidFunction(
+            ErrorReporter errorReporter,
+            string function,
+            int line
+        )
         {
             errorReporter.AddError(line, $"Invalid function: \"{function}\"");
         }
 
         internal static void ReportInvalidSpawnFunction(ErrorReporter errorReporter, int line)
         {
-            errorReporter.AddError(line, "The first function of the code "
-                                    + "has to be \"Spawn\" function");
+            errorReporter.AddError(
+                line,
+                "The first function of the code has to be \"Spawn\" function"
+            );
         }
 
         internal static void ReportInvalidAsigne(ErrorReporter errorReporter, string name, int line)

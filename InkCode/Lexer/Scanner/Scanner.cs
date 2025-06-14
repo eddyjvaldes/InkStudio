@@ -13,17 +13,13 @@ namespace InkCode.Lexer
 
         internal List<Token> Scan()
         {
-            if (source.Length > 0)
+            while (!IsAtEnd())
             {
-                while (!IsAtEnd())
-                {
-                    start = current;
-                    ScanToken();
-                }
+                start = current;
+                ScanToken();
             }
 
             AddEOFToken();
-
             return tokens;
         }
 
@@ -52,13 +48,15 @@ namespace InkCode.Lexer
                 case '!': HandleBang(); break;
 
                 case '-':
-                    AddSymbolToken(Match('>') ? Token.TokenType.ASIGNE
-                                        : Token.TokenType.MINUS);
+                    AddSymbolToken(
+                        Match('>') ? Token.TokenType.ASIGNE : Token.TokenType.MINUS
+                    );
                     break;
 
                 case '>':
-                    AddSymbolToken(Match('=') ? Token.TokenType.GREATER_EQUAL
-                                                : Token.TokenType.GREATER);
+                    AddSymbolToken(
+                        Match('=') ? Token.TokenType.GREATER_EQUAL : Token.TokenType.GREATER
+                    );
                     break;
 
                 case '*':

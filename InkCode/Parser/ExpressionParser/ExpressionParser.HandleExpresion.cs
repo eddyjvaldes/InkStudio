@@ -4,20 +4,20 @@ namespace InkCode.Parser
 {
     internal partial class ExpressionParser
     {
-        static Expression? HandleSingleExpression(List<Token> tokens, int index, ref bool hadError)
+        Expression? HandleSingleExpression(int index, ref bool hadError)
         {
             Token.TokenType type = tokens[index].Type;
 
             switch (type)
             {
                 case Token.TokenType.IDENTIFIER:
-                    return CreateVariableExpression(tokens, index);
+                    return CreateVariableExpression(index);
 
                 case Token.TokenType.TRUE:
                 case Token.TokenType.FALSE:
                 case Token.TokenType.NUMBER:
                 case Token.TokenType.STRING:
-                    return CreateLiteralExpression(tokens, index);
+                    return CreateLiteralExpression(index);
 
                 default:
                     hadError = true;
@@ -25,23 +25,30 @@ namespace InkCode.Parser
             }
         }
 
-        static LiteralExpression? HandleNegativeNumber(List<Token> tokens, int lower, int upper,
-                                                ref bool hadError)
+        LiteralExpression? HandleNegativeNumber(
+            int lower,
+            int upper,
+            ref bool hadError
+        )
         {
-            if (IsNegativeNumber(tokens, lower, upper))
+            if (IsNegativeNumber(lower, upper))
             {
-                return CreateNegativeNumberLiteral(tokens, upper);
+                return CreateNegativeNumberLiteral(upper);
             }
 
             hadError = true;
             return null;
         }
 
-        static BinaryExpression? HandleBinaryExpression(List<Token> tokens, int index, int lower,
-                                                        int upper, ref bool hadError)
+        BinaryExpression? HandleBinaryExpression(
+            int index,
+            int lower,
+            int upper,
+            ref bool hadError
+        )
         {
-            Expression? left = Parse(tokens, lower, index - 1);
-            Expression? right = Parse(tokens, index + 1, upper);
+            Expression? left = Parse(lower, index - 1);
+            Expression? right = Parse(index + 1, upper);
 
             if (left != null && right != null)
             {
@@ -52,10 +59,13 @@ namespace InkCode.Parser
             return null;
         }
 
-        static Expression? HandleGroupingExpression(List<Token> tokens, int lower, int upper,
-                                                    ref bool hadError)
+        Expression? HandleGroupingExpression(
+            int lower,
+            int upper,
+            ref bool hadError
+        )
         {
-            Expression? expression = Parse(tokens, lower + 1, upper - 1);
+            Expression? expression = Parse(lower + 1, upper - 1);
 
             if (expression != null)
             {
@@ -66,8 +76,11 @@ namespace InkCode.Parser
             return null;
         }
 
-        static FunctionCall? HandleFunctionCallExpression(List<Token> tokens, int lower, int upper,
-                                                            ref bool hadError)
+        FunctionCallExpression? HandleFunctionCallExpression(
+            int lower,
+            int upper,
+            ref bool hadError
+        )
         {
             Token.TokenType function = tokens[lower].Type;
 
@@ -78,8 +91,7 @@ namespace InkCode.Parser
                 case Token.TokenType.IS_BRUSH_SIZE:
                 case Token.TokenType.IS_CANVAS_COLOR:
 
-                    List<Expression>? expression = ParseFunctionArguments(tokens, lower + 2,
-                                                                            upper - 1);
+                    List<Expression>? expression = ParseFunctionArguments(lower + 2, upper - 1);
 
                     if (expression != null)
                     {
@@ -97,6 +109,7 @@ namespace InkCode.Parser
                 case Token.TokenType.GET_CANVAS_WIDTH:
                 case Token.TokenType.GET_BRUSH_COLOR:
                 case Token.TokenType.GET_BRUSH_SIZE:
+
                     if (upper - lower == 2)
                     {
                         return CreateFunctionCallExpression(function);

@@ -72,6 +72,5 @@ namespace InkCode.ErrorManager
                 return mid;
             }
         }
-
     }
 }

@@ -4,7 +4,7 @@ namespace InkCode.Parser
 {
     internal partial class ExpressionParser
     {
-        static int FindLowestPrecedenceOperator(List<Token> tokens, int lower, int upper)
+        int FindLowestPrecedenceOperator(int lower, int upper)
         {
             int minPrecedence = int.MaxValue;
             int index = -1;
@@ -12,17 +12,17 @@ namespace InkCode.Parser
 
             for (int i = lower; i <= upper; i++)
             {
-                if (MatchIndex(tokens, i, Token.TokenType.LEFT_PAREN))
+                if (MatchIndex(i, Token.TokenType.LEFT_PAREN))
                 {
                     depth++;
                 }
-                else if (MatchIndex(tokens, i, Token.TokenType.RIGHT_PAREN))
+                else if (MatchIndex(i, Token.TokenType.RIGHT_PAREN))
                 {
                     depth--;
                 }
-                else if (depth == 0 && IsValidBinaryOperator(tokens, i, lower, upper))
+                else if (depth == 0 && IsValidBinaryOperator(i, lower))
                 {
-                    int precedence = GetPrecedence(tokens, i);
+                    int precedence = GetPrecedence(i);
 
                     if (precedence <= minPrecedence)
                     {
@@ -35,7 +35,7 @@ namespace InkCode.Parser
             return index;
         }
 
-        static int GetPrecedence(List<Token> tokens, int index)
+        int GetPrecedence(int index)
         {
             switch (tokens[index].Type)
             {
@@ -70,7 +70,7 @@ namespace InkCode.Parser
             }
         }
 
-        static bool IsBinaryOperator(List<Token> tokens, int index)
+        bool IsBinaryOperator(int index)
         {
             switch (tokens[index].Type)
             {
@@ -95,11 +95,11 @@ namespace InkCode.Parser
             }
         }
 
-        static bool IsValidBinaryOperator(List<Token> tokens, int index, int lower, int upper)
+        bool IsValidBinaryOperator(int index, int lower)
         {
-            if (IsBinaryOperator(tokens, index))
+            if (IsBinaryOperator(index))
             {
-                if (index == lower && MatchIndex(tokens, lower, Token.TokenType.MINUS))
+                if (index == lower && MatchIndex(lower, Token.TokenType.MINUS))
                 {
                     return false;
                 }

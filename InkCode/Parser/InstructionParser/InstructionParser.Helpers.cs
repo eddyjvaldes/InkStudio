@@ -2,7 +2,7 @@ using InkCode.Lexer;
 
 namespace InkCode.Parser
 {
-    internal partial class Interpreter
+    internal partial class InstructionParser
     {
         void Advance()
         {
@@ -14,7 +14,7 @@ namespace InkCode.Parser
 
         bool MatchTypeIndex(int index, Token.TokenType expected)
         {
-            if (tokens[start + index].Type != expected)
+            if (tokens[index].Type != expected)
             {
                 return false;
             }
@@ -25,11 +25,6 @@ namespace InkCode.Parser
         bool IsAtEnd()
         {
             return tokens[current].Type == Token.TokenType.EOF;
-        }
-
-        Token PeekToken(int index = 0)
-        {
-            return tokens[start + index];
         }
 
         int PeekStartLine()

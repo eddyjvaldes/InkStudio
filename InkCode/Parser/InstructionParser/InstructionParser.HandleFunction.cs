@@ -1,6 +1,6 @@
 namespace InkCode.Parser
 {
-    internal partial class Interpreter
+    internal partial class InstructionParser
     {
         void HandleSpawn()
         {

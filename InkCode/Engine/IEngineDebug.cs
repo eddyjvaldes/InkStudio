@@ -1,10 +1,11 @@
+using InkCode.ErrorManager;
+using InkCode.Evaluator;
+
 namespace InkCode.Engine
 {
-    public interface IEngineDebug
+    public interface IEngineDebug : IErrorListener
     {
-        void Report(string message)
-        {
-            Console.WriteLine(message);
-        }
+        void Report(string message);
+        void PaintCanvas(CanvasState.Color[,] colors);
     }
 }

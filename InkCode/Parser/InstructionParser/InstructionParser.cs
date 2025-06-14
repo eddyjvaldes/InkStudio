@@ -3,17 +3,18 @@ using InkCode.Lexer;
 
 namespace InkCode.Parser
 {
-    internal partial class Interpreter(List<Token> tokens, ErrorReporter errorReporter)
+    internal partial class InstructionParser(List<Token> tokens, ErrorReporter errorReporter)
     {
         readonly List<Instruction> instructions = [];
         readonly List<Token> tokens = tokens;
         readonly Dictionary<string, int> labelsCollection = [];
+        readonly ExpressionParser expressionParser = new(tokens);
         readonly ErrorReporter errorReporter = errorReporter;
         int start = 0;
         int current = 0;
         int line = tokens[0].Line;
 
-        internal List<Instruction> Interpret()
+        internal List<Instruction> Parse()
         {
             FindLabels();
 
@@ -22,23 +23,23 @@ namespace InkCode.Parser
                 AddSpawnFunctionError();
             }
 
-            InterpretTokens();
+            ParseTokens();
 
             return instructions;
         }
 
-        void InterpretTokens()
+        void ParseTokens()
         {
             while (!IsAtEnd())
             {
-                InterpretLine();
+                ParseLine();
 
                 start = current;
                 line = PeekStartLine();
             }
         }
 
-        void InterpretLine()
+        void ParseLine()
         {
             Advance();
 
@@ -56,7 +57,6 @@ namespace InkCode.Parser
                 case Token.TokenType.DRAW_CIRCLE:
                 case Token.TokenType.DRAW_RECTANGLE:
                 case Token.TokenType.FILL:
-                case Token.TokenType.MOVE:
                 case Token.TokenType.GET_COLOR_COUNT:
                 case Token.TokenType.IS_BRUSH_COLOR:
                 case Token.TokenType.IS_BRUSH_SIZE:

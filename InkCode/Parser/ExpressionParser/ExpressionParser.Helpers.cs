@@ -2,30 +2,30 @@ using InkCode.Lexer;
 
 namespace InkCode.Parser
 {
-    internal static partial class ExpressionParser
+    internal partial class ExpressionParser
     {
-        static bool MatchIndex(List<Token> tokens, int index, Token.TokenType expect)
+        bool MatchIndex(int index, Token.TokenType expect)
         {
             return tokens[index].Type == expect;
         }
 
-        static bool AreArgumentsValid(List<Token> args)
+        bool AreArgumentsValid(int lower, int upper)
         {
-            if (args.Count > 0)
+            if (tokens.Count > 0)
             {
-                return AreParenthesesBalanced(args);
+                return AreParenthesesBalanced(lower, upper);
             }
 
             return false;
         }
 
-        static bool AreParenthesesBalanced(List<Token> args)
+        bool AreParenthesesBalanced(int lower, int upper)
         {
             int depth = 0;
 
-            foreach (var token in args)
+            for (int i = lower; i <= upper; i++)
             {
-                Token.TokenType type = token.Type;
+                Token.TokenType type = tokens[i].Type;
 
                 if (type == Token.TokenType.LEFT_PAREN)
                 {

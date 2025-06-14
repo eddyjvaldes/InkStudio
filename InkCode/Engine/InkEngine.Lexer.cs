@@ -12,10 +12,8 @@ namespace InkCode.Engine
 
         public void DebugLexer(IEngineDebug engineDebug, string source)
         {
-            List<Token> tokens = ScanContent(source);
-
-            ReportTokens(engineDebug, tokens);
-            CheckErrors();
+            ReportTokens(engineDebug, ScanContent(source));
+            ReportErrors();
         }
 
         static void ReportTokens(IEngineDebug engineDebug, List<Token> tokens)

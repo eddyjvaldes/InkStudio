@@ -5,37 +5,27 @@ namespace InkCode.Engine
 {
     public partial class InkEngine
     {
-        List<Instruction> InterpretSource(string source)
+        List<Instruction> ParseSource(string source)
         {
-            Interpreter interpreter = new(ScanContent(source), errorReporter);
-            return interpreter.Interpret();
+            InstructionParser interpreter = new(ScanContent(source), errorReporter);
+            return interpreter.Parse();
         }
 
         public void DebugParser(IEngineDebug engineDebug, string source)
         {
-            Interpreter interpreter = new(ScanContent(source), errorReporter);
+            ReportInstruction(engineDebug, ParseSource(source));
 
-            ReportInstruction(engineDebug, interpreter.Interpret());
-
-            CheckErrors();
+            ReportErrors();
         }
 
         public void DebugExpressionParser(IEngineDebug engineDebug, string source)
         {
             List<Token> tokens = ScanContent(source);
+            ExpressionParser expressionParser = new(tokens);
 
-            Expression? expression = ExpressionParser.Parse(tokens, 0, tokens.Count - 2);
+            ReportExpression(engineDebug, expressionParser.Parse(0, tokens.Count - 2));
 
-            ReportExpression(engineDebug, expression);
-        }
-
-        void DebugParser(IEngineDebug engineDebug, List<Token> tokens)
-        {
-            Interpreter interpreter = new(tokens, errorReporter);
-
-            ReportInstruction(engineDebug, interpreter.Interpret());
-
-            CheckErrors();
+            ReportErrors();
         }
 
         static void ReportInstruction(IEngineDebug engineDebug, List<Instruction> instructions)
@@ -61,7 +51,10 @@ namespace InkCode.Engine
                     engineDebug.Report("Error");
                 }
             }
+
+            engineDebug.Report("");
         }
+
 
         static void ReportExpression(IEngineDebug engineDebug, Expression? expression)
         {
@@ -71,7 +64,7 @@ namespace InkCode.Engine
             {
                 engineDebug.Report(binaryExpression.ToString());
             }
-            else if (expression is FunctionCall functionCall)
+            else if (expression is FunctionCallExpression functionCall)
             {
                 engineDebug.Report(functionCall.ToString());
             }
@@ -87,6 +80,8 @@ namespace InkCode.Engine
             {
                 engineDebug.Report("Error");
             }
+
+            engineDebug.Report("");
         }
     }
 }

@@ -2,11 +2,6 @@ namespace InkCode.Engine
 {
     public partial class InkEngine
     {
-        public void SelectFile(string path)
-        {
-            this.path = path;
-        }
-
         static string FileContent(string path)
         {
             if (!File.Exists(path))
