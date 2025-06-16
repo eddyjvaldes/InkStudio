@@ -6,16 +6,21 @@ namespace InkCode.Evaluator
         {
             if (Math.Abs(dirX) <= 1 && Math.Abs(dirY) <= 1 && distance > 0)
             {
-                if (Move(dirX, dirY, distance))
+                Draw(canvasState.positionX, canvasState.positionY);
+
+                for (int i = 0; i < distance; i++)
                 {
-                    if (!Draw(canvasState.positionX, canvasState.positionY))
+                    if (Move(dirY, dirX))
+                    {
+                        if (!Draw(canvasState.positionX, canvasState.positionY))
+                        {
+                            return false;
+                        }
+                    }
+                    else
                     {
                         return false;
                     }
-                }
-                else
-                {
-                    return false;
                 }
 
                 return true;

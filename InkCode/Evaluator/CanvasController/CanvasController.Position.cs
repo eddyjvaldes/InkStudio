@@ -4,15 +4,12 @@ namespace InkCode.Evaluator
     {
         bool Move(int dirX, int dirY, int distance = 1)
         {
-            for (int i = 0; i < distance; i++)
-            {
-                int x = canvasState.positionX + dirX;
-                int y = canvasState.positionY + dirY;
+            int x = canvasState.positionX + dirX * distance;
+            int y = canvasState.positionY + dirY * distance;
 
-                if (!SetPosition(x, y))
-                {
-                    return false;
-                }
+            if (!SetPosition(x, y))
+            {
+                return false;
             }
 
             return true;
@@ -54,7 +51,7 @@ namespace InkCode.Evaluator
         bool IsPositionValid(int positionX, int positionY)
         {
 
-            return positionX * positionY > 0
+            return positionX * positionY >= 0
                 && positionX < canvasState.CanvasX
                 && positionY < canvasState.CanvasY;
 

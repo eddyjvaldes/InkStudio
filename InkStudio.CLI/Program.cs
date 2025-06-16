@@ -1,6 +1,4 @@
-﻿using InkCode.Engine;
-
-namespace InkStudio.CLI
+﻿namespace InkStudio.CLI
 {
     class Program
     {
@@ -8,7 +6,7 @@ namespace InkStudio.CLI
         {
             EngineDebug engineDebug = new();
 
-            engineDebug.DebugInterpreterExpression("");
+            engineDebug.DebugInterpreter("Spawn(0,0) \n Color(\"Blue\") \n DrawLine(1, 0, 3)",5,5);
         }
     }
 }
