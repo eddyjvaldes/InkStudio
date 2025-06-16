@@ -110,11 +110,13 @@ offset_right = 292.0
 offset_bottom = 101.0
 
 [node name="canvasx" type="SpinBox" parent="AcceptDialog/Control"]
+layout_mode = 0
 offset_top = 18.0
 offset_right = 118.0
 offset_bottom = 78.0
 
 [node name="canvasy" type="SpinBox" parent="AcceptDialog/Control"]
+layout_mode = 0
 offset_left = 139.0
 offset_top = 21.0
 offset_right = 249.0
