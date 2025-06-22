@@ -1,6 +1,6 @@
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    internal partial class OperationExecutor
     {
         object? HandleStar(object left, object right, int line)
         {
@@ -59,21 +59,7 @@ namespace InkCode.Evaluator
             return null;
         }
 
-        object? HandlePlus(object left, object right, int line)
-        {
-            if (AreInteger(left, right))
-            {
-                return (int)left + (int)right;
-            }
-            else if (AreString(left, right))
-            {
-                return (string)left + (string)right;
-            }
 
-            AddInvalidOperationError($"{left} + {right}", line);
-
-            return null;
-        }
 
         object? HandleMinus(object left, object right, int line)
         {
@@ -132,46 +118,6 @@ namespace InkCode.Evaluator
             }
             
             AddInvalidOperationError($"{left} >= {right}", line);
-
-            return null;
-        }
-
-        object? HandleEqualEqual(object left, object right, int line)
-        {
-            if (AreInteger(left, right))
-            {
-                return (int)left == (int)right;
-            }
-            else if (AreBoolean(left, right))
-            {
-                return (bool)left == (bool)right;
-            }
-            else if (AreString(left, right))
-            {
-                return (string)left == (string)right;
-            }
-            
-            AddInvalidOperationError($"{left} == {right}", line);
-
-            return null;
-        }
-
-        object? HandleBangEqual(object left, object right, int line)
-        {
-            if (AreInteger(left, right))
-            {
-                return (int)left != (int)right;
-            }
-            else if (AreBoolean(left, right))
-            {
-                return (bool)left != (bool)right;
-            }
-            else if (AreString(left, right))
-            {
-                return (string)left != (string)right;
-            } 
-
-            AddInvalidOperationError($"{left} != {right}", line);
 
             return null;
         }

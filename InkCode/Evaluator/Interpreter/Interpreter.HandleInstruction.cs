@@ -20,7 +20,7 @@ namespace InkCode.Evaluator
 
                 if (safe)
                 {
-                    executor.Function(function, args, line);
+                    functionExecutor.Function(function, args, line);
                 }
             }
 
@@ -47,7 +47,7 @@ namespace InkCode.Evaluator
 
                 if (safe)
                 {
-                    executor.HandleAsigne(assignmentInstruction.Name, arg);
+                    proccessExecutor.HandleAsigne(assignmentInstruction.Name, arg);
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace InkCode.Evaluator
                     gotoInstruction.Condition = new LiteralExpression(arg);
                 }
                 
-                if (executor.HandleGoto(line, gotoInstruction.Calls, arg))
+                if (proccessExecutor.HandleGoto(line, gotoInstruction.Calls, arg))
                 {
                     if (safe)
                     {

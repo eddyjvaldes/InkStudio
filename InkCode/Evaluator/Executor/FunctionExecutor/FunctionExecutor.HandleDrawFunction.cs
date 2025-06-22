@@ -1,6 +1,6 @@
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    internal partial class FunctionExecutor
     {
         internal object? HandleDrawLine(List<object> args, int line)
         {

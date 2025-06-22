@@ -1,6 +1,6 @@
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    internal partial class FunctionExecutor
     {
         object? HandleSpawn(List<object> args, int line)
         {

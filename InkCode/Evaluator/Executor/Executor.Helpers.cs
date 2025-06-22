@@ -1,8 +1,8 @@
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    abstract internal partial class Executor
     {
-        static List<int> ReturnIntegerArguments(List<object> args)
+        protected static List<int> ReturnIntegerArguments(List<object> args)
         {
             List<int> ints = [];
 
@@ -17,7 +17,7 @@ namespace InkCode.Evaluator
             return ints;
         }
 
-        static bool AreInteger(object left, object right)
+        protected static bool AreInteger(object left, object right)
         {
             if (left is int && right is int)
             {
@@ -27,7 +27,7 @@ namespace InkCode.Evaluator
             return false;
         }
 
-        static bool AreBoolean(object left, object right)
+        protected static bool AreBoolean(object left, object right)
         {
             if (left is bool && right is bool)
             {
@@ -37,7 +37,7 @@ namespace InkCode.Evaluator
             return false;
         }
 
-        static bool AreString(object left, object right)
+        protected static bool AreString(object left, object right)
         {
             if (left is string && right is string)
             {
@@ -47,7 +47,7 @@ namespace InkCode.Evaluator
             return false;
         }
 
-        internal static int MCD(int a, int b)
+        protected internal static int MCD(int a, int b)
         {
             int rest = a % b;
 

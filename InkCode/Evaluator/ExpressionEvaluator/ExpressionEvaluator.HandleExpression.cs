@@ -33,7 +33,7 @@ namespace InkCode.Evaluator
                         expression.Right = new LiteralExpression(right);
                     }
                     
-                    return executor.Operation(expression.Operation, left, right, line);
+                    return operationExecutor.Operation(expression.Operation, left, right, line);
                 }
             }
 
@@ -63,7 +63,7 @@ namespace InkCode.Evaluator
 
                 if (functionCall.Args.Count == expressions.Count)
                 {
-                    return executor.Function(functionCall.Function, expressions, line);
+                    return functionExecutor.Function(functionCall.Function, expressions, line);
                 }
             }
 

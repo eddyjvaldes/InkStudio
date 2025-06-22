@@ -1,6 +1,6 @@
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    internal partial class OperationExecutor
     {
         object? HandleOr(object left, object right, int line)
         {

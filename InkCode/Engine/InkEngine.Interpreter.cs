@@ -35,11 +35,14 @@ namespace InkCode.Engine
             List<Token> tokens = ScanContent(source);
             ExpressionParser expressionParser = new(tokens);
             Expression? expression = expressionParser.Parse(0, tokens.Count - 2);
+            CanvasController canvasController = new(new (canvasX, canvasY));
 
             if (expression != null)
             {
                 ExpressionEvaluator expressionEvaluator = new(
                     new CanvasController(new CanvasState(canvasX, canvasY)),
+                    new(canvasController, errorReporter),
+                    new(canvasController, errorReporter),
                     errorReporter
                 );
 

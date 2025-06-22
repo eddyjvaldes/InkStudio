@@ -5,16 +5,20 @@ namespace InkCode.Evaluator
 {
     internal partial class ExpressionEvaluator(
         CanvasController canvasController,
+        FunctionExecutor functionExecutor,
+        OperationExecutor operationExecutor,
         ErrorReporter errorReporter
     )
     {
-        readonly Executor executor = new(canvasController, errorReporter);
+        readonly CanvasController canvasController = canvasController;
+        readonly FunctionExecutor functionExecutor =functionExecutor;
+        readonly OperationExecutor operationExecutor = operationExecutor;
 
         internal object? Evaluate(Expression expression, int line)
         {
             bool hadError = false;
 
-            return Evaluate(expression, line, ref hadError);   
+            return Evaluate(expression, line, ref hadError);
         }
 
         internal object? Evaluate(Expression expression, int line, ref bool hadError)

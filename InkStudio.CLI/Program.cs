@@ -6,7 +6,7 @@
         {
             EngineDebug engineDebug = new();
 
-            // engineDebug.DebugInterpreter("Spawn(3,3) \n Color(\"Yellow\") \n DrawRectangle(0,0,0, 5,5)", 7, 7);
+            engineDebug.DebugInterpreter("Spawn(0,0) \n Color(\"Yellow\") \n DrawLine(1,1, 3)", 7, 7);
         }
     }
 }

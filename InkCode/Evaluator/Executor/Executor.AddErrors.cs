@@ -2,29 +2,29 @@ using InkCode.ErrorManager;
 
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    abstract internal partial class Executor
     {
-        void AddStamentError(int line)
+        protected void AddStamentError(int line)
         {
             ErrorMessage.ReportInvalidStatement(errorReporter, line);
         }
 
-        void AddArgumentsError(int line)
+        protected void AddArgumentsError(int line)
         {
             ErrorMessage.ReportInvalidArguments(errorReporter, line);
         }
 
-        void AddInvalidOperationError(string operation, int line)
+        protected void AddInvalidOperationError(string operation, int line)
         {
             ErrorMessage.ReportInvalidOperation(errorReporter, operation, line);
         }
 
-        void AddOutCanvasError(int line)
+        protected void AddOutCanvasError(int line)
         {
             ErrorMessage.ReportOutCanvas(errorReporter, line);
         }
 
-        void AddGoToCallsError(int line)
+        protected void AddGoToCallsError(int line)
         {
             ErrorMessage.ReportGoToExceedsLimitCalls(errorReporter, line);
         }

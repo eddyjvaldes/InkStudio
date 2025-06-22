@@ -8,8 +8,10 @@ namespace InkCode.Evaluator
         readonly List<Instruction> instructions;
         readonly ErrorReporter errorReporter;
         readonly CanvasController canvasController;
-        readonly Executor executor;
         readonly ExpressionEvaluator expressionEvaluator;
+        readonly FunctionExecutor functionExecutor;
+        readonly ProccessExecutor proccessExecutor;
+        readonly OperationExecutor operationExecutor;
         int current = 0;
 
         internal Interpreter(
@@ -22,8 +24,18 @@ namespace InkCode.Evaluator
             this.instructions = instructions;
             this.errorReporter = errorReporter;
             canvasController = new(new CanvasState(canvasX, canvasY));
-            executor = new(canvasController, errorReporter);
-            expressionEvaluator = new(canvasController, errorReporter);
+
+            functionExecutor = new(canvasController, errorReporter);
+            proccessExecutor = new(canvasController, errorReporter);
+            operationExecutor = new(canvasController, errorReporter);
+
+            expressionEvaluator = new(
+                canvasController,
+                functionExecutor,
+                operationExecutor,
+                errorReporter
+                );
+
         }
 
         internal CanvasState.Color[,] Execute()

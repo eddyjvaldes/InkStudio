@@ -1,9 +1,15 @@
+using InkCode.ErrorManager;
 using InkCode.Lexer;
 
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    internal partial class FunctionExecutor : Executor
     {
+        internal FunctionExecutor(
+            CanvasController canvasController, ErrorReporter errorReporter) :
+            base(canvasController, errorReporter)
+        { }
+        
         internal object? Function(Token.TokenType function, List<object> args, int line)
         {
             switch (function)

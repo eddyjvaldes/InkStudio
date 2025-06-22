@@ -1,7 +1,14 @@
+using InkCode.ErrorManager;
+
 namespace InkCode.Evaluator
 {
-    internal partial class Executor
+    internal class ProccessExecutor : Executor
     {
+        internal ProccessExecutor(
+            CanvasController canvasController, ErrorReporter errorReporter)
+            : base(canvasController, errorReporter)
+        { }
+
         internal void HandleAsigne(string name, object args)
         {
             canvasController.canvasState.LiteralsCollection.TryAdd(name, args);

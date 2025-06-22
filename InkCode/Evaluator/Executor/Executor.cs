@@ -2,9 +2,9 @@ using InkCode.ErrorManager;
 
 namespace InkCode.Evaluator
 {
-    internal partial class Executor(CanvasController canvasController, ErrorReporter errorReporter)
+    abstract internal partial class Executor(CanvasController canvasController, ErrorReporter errorReporter)
     {
-        readonly CanvasController canvasController = canvasController;
-        readonly ErrorReporter errorReporter = errorReporter;
+        protected readonly CanvasController canvasController = canvasController;
+        protected readonly ErrorReporter errorReporter = errorReporter;
     }
 }
