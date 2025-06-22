@@ -25,7 +25,6 @@ namespace InkCode.Parser
             line = PeekStartLine();
         }
 
-
         void HandleAsigne()
         {
             if (IsAsigneProcess())
@@ -72,7 +71,5 @@ namespace InkCode.Parser
                 AddFunctionError();
             }
         }
-
-
     }
 }

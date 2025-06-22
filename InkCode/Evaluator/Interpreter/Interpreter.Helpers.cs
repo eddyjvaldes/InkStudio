@@ -21,10 +21,6 @@ namespace InkCode.Evaluator
                 {
                     args.Add(expression);
                 }
-                else
-                {
-                    // error
-                }
             }
 
             if (functionCall.Args.Count == args.Count)

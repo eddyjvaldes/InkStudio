@@ -4,24 +4,26 @@ namespace InkCode.Evaluator
     {
         internal void HandleAsigne(string name, object args)
         {
-            if (!canvasController.canvasState.LiteralsCollection.TryAdd(name, args))
-            {
-                canvasController.canvasState.LiteralsCollection[name] = args;
-            }
+            canvasController.canvasState.LiteralsCollection.TryAdd(name, args);
+
+            canvasController.canvasState.LiteralsCollection[name] = args;
         }
 
-        internal static int? HandleGoto(int line, object args)
+        internal bool HandleGoto(int line, object arg)
         {
-            if (args is bool validArgs)
+            if (arg is bool condition)
             {
-                if (validArgs)
+                if (condition == true)
                 {
-                    return line;
+                    return true;
                 }
             }
+            else
+            {
+                AddArgumentsError(line);
+            }
 
-            // error
-            return -1;
+            return false; 
         }
     }
 }

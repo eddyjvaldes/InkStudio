@@ -8,10 +8,8 @@ namespace InkCode.Evaluator
             {
                 return canvasController.canvasState.positionX;
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line); 
 
             return null;
         }
@@ -22,10 +20,8 @@ namespace InkCode.Evaluator
             {
                 return canvasController.canvasState.positionY;
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -36,10 +32,8 @@ namespace InkCode.Evaluator
             {
                 return canvasController.canvasState.CanvasX;
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -50,10 +44,8 @@ namespace InkCode.Evaluator
             {
                 return canvasController.canvasState.CanvasY;
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -64,10 +56,8 @@ namespace InkCode.Evaluator
             {
                 return canvasController.canvasState.BrushColor;
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -78,10 +68,8 @@ namespace InkCode.Evaluator
             {
                 return canvasController.canvasState.BrushSize;
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }

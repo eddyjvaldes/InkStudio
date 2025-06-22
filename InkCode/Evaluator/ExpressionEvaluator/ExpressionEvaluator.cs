@@ -14,6 +14,11 @@ namespace InkCode.Evaluator
         {
             bool hadError = false;
 
+            return Evaluate(expression, line, ref hadError);   
+        }
+
+        internal object? Evaluate(Expression expression, int line, ref bool hadError)
+        {
             if (expression is BinaryExpression binaryExpression)
             {
                 return HandleBinaryExpression(binaryExpression, line, ref hadError);
@@ -28,7 +33,7 @@ namespace InkCode.Evaluator
             }
             else if (expression is VariableExpression variableExpression)
             {
-                return HandleVariableExpression(variableExpression, ref hadError);
+                return HandleVariableExpression(variableExpression, line, ref hadError);
             }
             else
             {

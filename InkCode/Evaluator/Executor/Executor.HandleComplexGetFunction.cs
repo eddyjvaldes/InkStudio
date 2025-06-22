@@ -22,25 +22,11 @@ namespace InkCode.Evaluator
                                 ints[4]
                             );
                         }
-                        else
-                        {
-                            // error
-                        }
-                    }
-                    else
-                    {
-                        // error
                     }
                 }
-                else
-                {
-                    // error
-                }
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -56,15 +42,9 @@ namespace InkCode.Evaluator
                         return validColor == canvasController.canvasState.BrushColor;
                     }
                 }
-                else
-                {
-                    // error
-                }
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -77,15 +57,9 @@ namespace InkCode.Evaluator
                 {
                     return size == canvasController.canvasState.BrushSize;
                 }
-                else
-                {
-                    // error
-                }
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }
@@ -104,25 +78,11 @@ namespace InkCode.Evaluator
                         {
                             return canvasController.IsCanvasColor(validColor, ints[0], ints[1]);
                         }
-                        else
-                        {
-                            // error
-                        }
-                    }
-                    else
-                    {
-                        // error
                     }
                 }
-                else
-                {
-                    // error
-                }
             }
-            else
-            {
-                // error
-            }
+
+            AddArgumentsError(line);
 
             return null;
         }

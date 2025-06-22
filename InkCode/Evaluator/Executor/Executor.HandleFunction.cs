@@ -1,5 +1,3 @@
-using InkCode.ErrorManager;
-
 namespace InkCode.Evaluator
 {
     internal partial class Executor
@@ -14,19 +12,19 @@ namespace InkCode.Evaluator
                 {
                     if (!canvasController.SetPosition(positions[0], positions[1]))
                     {
-                        // error
+                        AddOutCanvasError(line);
                     }
                 }
                 else
                 {
-                    // error
+                    AddArgumentsError(line);
                 }
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
-
+ 
             return null;
         }
 
@@ -38,17 +36,17 @@ namespace InkCode.Evaluator
                 {
                     if (!canvasController.ChangeBrushColor(input))
                     {
-                        // error
+                        AddInvalidOperationError($"Change {input} color", line);
                     }
                 }
                 else
                 {
-                    // error
+                    AddArgumentsError(line);
                 }
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
 
             return null;
@@ -62,19 +60,19 @@ namespace InkCode.Evaluator
                 {
                     if (!canvasController.ChangeBrushSize(integer))
                     {
-                        // error
+                        AddInvalidOperationError($"Change to {integer} the size of the brush", line);
                     }
                 }
                 else
                 {
-                    // error
+                    AddArgumentsError(line);
                 }
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
-
+            
             return null;
         }
     }

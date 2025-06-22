@@ -2,7 +2,7 @@ namespace InkCode.Evaluator
 {
     internal partial class Executor
     {
-        object? HandleOr(object left, object right)
+        object? HandleOr(object left, object right, int line)
         {
             if (AreBoolean(left, right))
             {
@@ -10,12 +10,13 @@ namespace InkCode.Evaluator
             }
             else
             {
-                // error
+                AddInvalidOperationError($"{left} || {right}", line);
+
                 return null;
             }
         }
 
-        object? HandleAnd(object left, object right)
+        object? HandleAnd(object left, object right, int line)
         {
             if (AreBoolean(left, right))
             {
@@ -23,7 +24,8 @@ namespace InkCode.Evaluator
             }
             else
             {
-                // error
+                AddInvalidOperationError($"{left} && {right}", line);
+                
                 return null;
             }
         }

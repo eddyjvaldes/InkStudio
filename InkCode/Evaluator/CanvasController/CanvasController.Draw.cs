@@ -89,7 +89,6 @@ namespace InkCode.Evaluator
             }
 
             return false;
-
         }
 
         internal bool Fill()
@@ -146,7 +145,5 @@ namespace InkCode.Evaluator
                 Fill(canvasMask, targetColor, queue);
             }
         }
-
-
     }
 }

@@ -37,10 +37,5 @@ namespace InkCode.Parser
         {
             return new FunctionCallExpression(function, expression);
         }
-
-        static FunctionCallExpression CreateFunctionCallExpression(Token.TokenType function)
-        {
-            return new FunctionCallExpression(function, []);
-        }
     }
 }

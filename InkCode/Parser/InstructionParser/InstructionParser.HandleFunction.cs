@@ -34,13 +34,5 @@ namespace InkCode.Parser
                 AddFunctionError();
             }
         }
-
-        void HandleParameterlessFunction()
-        {
-            if (PeekLineCount() != 3)
-            {
-                AddStatementError();
-            }
-        }
     }
 }

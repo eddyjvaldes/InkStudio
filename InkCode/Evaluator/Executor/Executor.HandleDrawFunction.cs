@@ -12,17 +12,17 @@ namespace InkCode.Evaluator
                 {
                     if (!canvasController.DrawLine(ints[0], ints[1], ints[2]))
                     {
-                        // error
+                        AddOutCanvasError(line);
                     }
                 }
                 else
                 {
-                    // error
+                    AddArgumentsError(line);
                 }
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
 
             return null;
@@ -38,17 +38,17 @@ namespace InkCode.Evaluator
                 {
                     if (!canvasController.DrawCircle(ints[0], ints[1], ints[2]))
                     {
-                        // error
+                        AddOutCanvasError(line);
                     }
                 }
                 else
                 {
-                    // error
+                    AddArgumentsError(line);
                 }
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
 
             return null;
@@ -71,19 +71,19 @@ namespace InkCode.Evaluator
                     )
                     )
                     {
-                        // error
+                        AddOutCanvasError(line);
                     }
                 }
                 else
                 {
-                    // error
+                    AddArgumentsError(line);
                 }
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
-
+            
             return null;
         }
 
@@ -95,7 +95,7 @@ namespace InkCode.Evaluator
             }
             else
             {
-                // error
+                AddArgumentsError(line);
             }
 
             return null;

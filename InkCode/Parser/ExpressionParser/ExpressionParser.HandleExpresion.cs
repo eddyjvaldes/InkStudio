@@ -90,19 +90,6 @@ namespace InkCode.Parser
                 case Token.TokenType.IS_BRUSH_COLOR:
                 case Token.TokenType.IS_BRUSH_SIZE:
                 case Token.TokenType.IS_CANVAS_COLOR:
-
-                    List<Expression>? expression = ParseFunctionArguments(lower + 2, upper - 1);
-
-                    if (expression != null)
-                    {
-                        return CreateFunctionCallExpression(function, expression);
-                    }
-                    else
-                    {
-                        hadError = true;
-                        return null;
-                    }
-
                 case Token.TokenType.GET_ACTUAL_X:
                 case Token.TokenType.GET_ACTUAL_Y:
                 case Token.TokenType.GET_CANVAS_LENGTH:
@@ -110,9 +97,11 @@ namespace InkCode.Parser
                 case Token.TokenType.GET_BRUSH_COLOR:
                 case Token.TokenType.GET_BRUSH_SIZE:
 
-                    if (upper - lower == 2)
+                    List<Expression>? expression = ParseFunctionArguments(lower + 2, upper - 1);
+
+                    if (expression != null)
                     {
-                        return CreateFunctionCallExpression(function);
+                        return CreateFunctionCallExpression(function, expression);
                     }
                     else
                     {

@@ -54,7 +54,6 @@ namespace InkCode.Evaluator
             return positionX * positionY >= 0
                 && positionX < canvasState.CanvasX
                 && positionY < canvasState.CanvasY;
-
         }
 
         internal bool SetPosition(

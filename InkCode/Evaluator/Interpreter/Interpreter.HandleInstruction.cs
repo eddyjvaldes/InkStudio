@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using InkCode.Parser;
 
 namespace InkCode.Evaluator
@@ -24,10 +23,6 @@ namespace InkCode.Evaluator
             {
                 executor.HandleAsigne(assignmentInstruction.Name, arg);
             }
-            else
-            {
-                // error
-            }
         }
 
         void HandleGoto(GotoInstruction gotoInstruction, int line)
@@ -36,21 +31,10 @@ namespace InkCode.Evaluator
 
             if (arg != null)
             {
-                if (arg is bool condition)
+                if (executor.HandleGoto(line, arg))
                 {
-                    if (condition == true)
-                    {
-                        current = SearchLineIndex(gotoInstruction.LabelLine);
-                    }
+                    current = SearchLineIndex(gotoInstruction.LabelLine);
                 }
-                else
-                {
-                    // error
-                }
-            }
-            else
-            {
-                // error
             }
         }
     }

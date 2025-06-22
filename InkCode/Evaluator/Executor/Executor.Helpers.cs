@@ -36,5 +36,27 @@ namespace InkCode.Evaluator
 
             return false;
         }
+
+        static bool AreString(object left, object right)
+        {
+            if (left is string && right is string)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        internal static int MCD(int a, int b)
+        {
+            int rest = a % b;
+
+            if (rest == 0)
+            {
+                return b;
+            }
+
+            return MCD(b, rest);
+        }
     }
 }

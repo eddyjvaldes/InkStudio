@@ -40,7 +40,6 @@ namespace InkCode.Evaluator
                     y2 = c;
                 }
 
-
                 for (int i = x1; i <= x2; i++)
                 {
                     for (int j = y1; j <= y2; j++)

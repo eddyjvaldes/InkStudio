@@ -2,160 +2,178 @@ namespace InkCode.Evaluator
 {
     internal partial class Executor
     {
-        static object? HandleStar(object left, object right)
+        object? HandleStar(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left * (int)right;
             }
-            else
-            {
-                // error
-                return null;
-            }
+
+            AddInvalidOperationError($"{left} * {right}", line);
+
+            return null;
         }
 
-        static object? HandleSlash(object left, object right)
+        object? HandleSlash(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
-                return (int)left / (int)right;
+                int a = (int)left;
+                int b = (int)right;
+
+                if (b != 0)
+                {
+                    if (MCD(a, b) != 1)
+                    {
+                        return a / b;
+                    }
+                }
             }
-            else
-            {
-                // error
-                return null;
-            }
+
+            AddInvalidOperationError($"{left} / {right}", line);
+
+            return null;
         }
 
-        static object? HandlePercent(object left, object right)
+        object? HandlePercent(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left % (int)right;
             }
-            else
-            {
-                // error
-                return null;
-            }
+
+            AddInvalidOperationError($"{left} % {right}", line);
+
+            return null;
         }
 
-        static object? HandlePower(object left, object right)
+        object? HandlePower(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)Math.Pow((int)left, (int)right);
             }
-            else
-            {
-                // error
-                return null;
-            }
+
+            AddInvalidOperationError($"{left} ^ {right}", line);
+
+            return null;
         }
 
-        static object? HandlePlus(object left, object right)
+        object? HandlePlus(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left + (int)right;
             }
-            else
+            else if (AreString(left, right))
             {
-                // error
-                return null;
+                return (string)left + (string)right;
             }
+
+            AddInvalidOperationError($"{left} + {right}", line);
+
+            return null;
         }
 
-        static object? HandleMinus(object left, object right)
+        object? HandleMinus(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left - (int)right;
             }
-            else
-            {
-                // error
-                return null;
-            }
+
+            AddInvalidOperationError($"{left} - {right}", line);
+
+            return null;
         }
 
-        static object? HandleLess(object left, object right)
+        object? HandleLess(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left < (int)right;
             }
-            else
-            {
-                // error
+
+                AddInvalidOperationError($"{left} < {right}", line);
+
                 return null;
-            }
         }
 
-        static object? HandleLessEqual(object left, object right)
+
+        object? HandleLessEqual(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left <= (int)right;
             }
-            else
-            {
-                // error
-                return null;
-            }
+            
+            AddInvalidOperationError($"{left} <= {right}", line);
+
+            return null;
         }
 
-        static object? HandleGreater(object left, object right)
+        object? HandleGreater(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left > (int)right;
             }
-            else
-            {
-                // error
-                return null;
-            }
+            
+            AddInvalidOperationError($"{left} > {right}", line);
+
+            return null;
         }
 
-        static object? HandleGreaterEqual(object left, object right)
+        object? HandleGreaterEqual(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left >= (int)right;
             }
-            else
-            {
-                // error
-                return null;
-            }
+            
+            AddInvalidOperationError($"{left} >= {right}", line);
+
+            return null;
         }
 
-        static object? HandleEqualEqual(object left, object right)
+        object? HandleEqualEqual(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left == (int)right;
             }
-            else
+            else if (AreBoolean(left, right))
             {
-                // error
-                return null;
+                return (bool)left == (bool)right;
             }
+            else if (AreString(left, right))
+            {
+                return (string)left == (string)right;
+            }
+            
+            AddInvalidOperationError($"{left} == {right}", line);
+
+            return null;
         }
 
-        static object? HandleBangEqual(object left, object right)
+        object? HandleBangEqual(object left, object right, int line)
         {
             if (AreInteger(left, right))
             {
                 return (int)left != (int)right;
             }
-            else
+            else if (AreBoolean(left, right))
             {
-                // error
-                return null;
+                return (bool)left != (bool)right;
             }
+            else if (AreString(left, right))
+            {
+                return (string)left != (string)right;
+            } 
+
+            AddInvalidOperationError($"{left} != {right}", line);
+
+            return null;
         }
     }
 }

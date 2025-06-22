@@ -12,12 +12,12 @@ namespace InkCode.Evaluator
         {
             if (!hadError)
             {
-                object? left = Evaluate(expression.Left, line);
-                object? right = Evaluate(expression.Right, line);
+                object? left = Evaluate(expression.Left, line, ref hadError);
+                object? right = Evaluate(expression.Right, line, ref hadError);
 
                 if (left != null && right != null)
                 {
-                    return executor.Operation(expression.Operation, left, right);
+                    return executor.Operation(expression.Operation, left, right, line);
                 }
             }
 
@@ -37,7 +37,7 @@ namespace InkCode.Evaluator
 
                 foreach (var expression in functionCall.Args)
                 {
-                    object? arg = Evaluate(expression, line);
+                    object? arg = Evaluate(expression, line, ref hadError);
 
                     if (arg != null)
                     {
@@ -57,6 +57,7 @@ namespace InkCode.Evaluator
 
         object? HandleVariableExpression(
             VariableExpression variableExpression,
+            int line,
             ref bool hadError
         )
         {
@@ -72,6 +73,8 @@ namespace InkCode.Evaluator
                 {
                     return value;
                 }
+
+                AddVariableError(name, line);
             }
 
             hadError = true;

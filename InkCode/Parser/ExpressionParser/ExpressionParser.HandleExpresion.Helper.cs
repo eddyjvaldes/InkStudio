@@ -49,6 +49,11 @@ namespace InkCode.Parser
         {
             List<Expression> expressions = [];
 
+            if (upper < lower)
+            {
+                return expressions;
+            }
+
             int index = lower;
 
             for (int i = lower; i <= upper; i++)

@@ -9,7 +9,6 @@ namespace InkCode.Evaluator
         readonly CanvasController canvasController;
         readonly Executor executor;
         readonly ExpressionEvaluator expressionEvaluator;
-        readonly ErrorReporter errorReporter;
         int current = 0;
 
         internal Interpreter(
@@ -23,8 +22,6 @@ namespace InkCode.Evaluator
             canvasController = new(new CanvasState(canvasX, canvasY));
             executor = new(canvasController, errorReporter);
             expressionEvaluator = new(canvasController, errorReporter);
-            this.errorReporter = errorReporter;
-
         }
 
         internal CanvasState.Color[,] Execute()
@@ -54,10 +51,6 @@ namespace InkCode.Evaluator
             else if (instruction is GotoInstruction gotoInstruction)
             {
                 HandleGoto(gotoInstruction, line);
-            }
-            else
-            {
-                // error
             }
         }
     }

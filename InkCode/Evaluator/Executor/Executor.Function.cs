@@ -1,4 +1,3 @@
-using InkCode.ErrorManager;
 using InkCode.Lexer;
 
 namespace InkCode.Evaluator
@@ -28,7 +27,7 @@ namespace InkCode.Evaluator
                 case Token.TokenType.IS_CANVAS_COLOR: return HandleIsCanvasColor(args, line);
 
                 default:
-                    // error
+                    AddStamentError(line);
                     return null;
             }
         }

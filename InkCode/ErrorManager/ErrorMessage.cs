@@ -48,5 +48,20 @@ namespace InkCode.ErrorManager
         {
             errorReporter.AddError(line, "Invalid arguments");
         }
+
+        internal static void ReportInvalidOperation(ErrorReporter errorReporter, string operation, int line)
+        {
+            errorReporter.AddError(line, $"Invalid operation {operation}");
+        }
+
+        internal static void ReportInvalidVariable(ErrorReporter errorReporter, string name, int line)
+        {
+            errorReporter.AddError(line, $"The variable {name} does not exist");
+        }
+
+        internal static void ReportOutCanvas(ErrorReporter errorReporter, int line)
+        {
+            errorReporter.AddError(line, "Output of the canvas");
+        }
     }
 }

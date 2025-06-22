@@ -61,17 +61,13 @@ namespace InkCode.Parser
                 case Token.TokenType.IS_BRUSH_COLOR:
                 case Token.TokenType.IS_BRUSH_SIZE:
                 case Token.TokenType.IS_CANVAS_COLOR:
-                    HandleFunction();
-                    break;
-
-                // parameterless function
                 case Token.TokenType.GET_ACTUAL_X:
                 case Token.TokenType.GET_ACTUAL_Y:
                 case Token.TokenType.GET_CANVAS_LENGTH:
                 case Token.TokenType.GET_CANVAS_WIDTH:
                 case Token.TokenType.GET_BRUSH_COLOR:
                 case Token.TokenType.GET_BRUSH_SIZE:
-                    HandleParameterlessFunction();
+                    HandleFunction();
                     break;
 
                 default:

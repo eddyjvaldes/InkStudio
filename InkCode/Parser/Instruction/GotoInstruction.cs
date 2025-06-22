@@ -10,8 +10,7 @@ namespace InkCode.Parser
             Condition = condition;
             LabelLine = labelLine;
         }
-
-        public override string ToString()
+       public override string ToString()
         {
             return $"{Line}: Goto Instruction: {Condition} | Label Line: {LabelLine}";
         }
