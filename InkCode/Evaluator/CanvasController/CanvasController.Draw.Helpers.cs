@@ -23,7 +23,11 @@ namespace InkCode.Evaluator
         {
             if (canvasState.BrushSize == 1)
             {
-                canvasState.Canvas[x, y] = canvasState.BrushColor;
+                if (canvasState.BrushColor != CanvasState.Color.Transparent)
+                {
+                    canvasState.Canvas[x, y] = canvasState.BrushColor;
+                }
+                
                 return true;
             }
             else

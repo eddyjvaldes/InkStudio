@@ -93,18 +93,21 @@ namespace InkCode.Evaluator
 
         internal bool Fill()
         {
-            bool[,] canvasMask = new bool[canvasState.CanvasX, canvasState.CanvasY];
-            Queue<(int x, int y)> queue = new();
+            if (canvasState.BrushColor != CanvasState.Color.Transparent)
+            {
+                bool[,] canvasMask = new bool[canvasState.CanvasX, canvasState.CanvasY];
+                Queue<(int x, int y)> queue = new();
 
-            CanvasState.Color targetColor = canvasState.Canvas[
-                canvasState.positionX,
-                canvasState.positionY
-            ];
+                CanvasState.Color targetColor = canvasState.Canvas[
+                    canvasState.positionX,
+                    canvasState.positionY
+                ];
 
-            queue.Enqueue((canvasState.positionX, canvasState.positionY));
-            canvasMask[canvasState.positionX, canvasState.positionY] = true;
+                queue.Enqueue((canvasState.positionX, canvasState.positionY));
+                canvasMask[canvasState.positionX, canvasState.positionY] = true;
 
-            Fill(canvasMask, targetColor, queue);
+                Fill(canvasMask, targetColor, queue);
+            }
 
             return true;
         }

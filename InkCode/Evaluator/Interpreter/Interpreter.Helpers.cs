@@ -50,6 +50,25 @@ namespace InkCode.Evaluator
             }
         }
 
+        static void AnalyzeFunctionConstantArgs(
+            FunctionCallInstruction functionCallInstruction,
+            List<object> args
+        )
+        {
+            List<Expression> functionArgs = functionCallInstruction.Args;
+
+            for (int i = 0; i < args.Count; i++)
+            {
+                if (
+                    functionArgs[i] is not LiteralExpression
+                    && ExpressionEvaluator.IsConstantExpression(functionArgs[i])
+                )
+                {
+                    functionArgs[i] = new LiteralExpression(args[i]); 
+                }
+            }
+        }
+
         int SearchLineIndex(int line)
         {
             return SearchLineIndex(line, 0, instructions.Count - 1);

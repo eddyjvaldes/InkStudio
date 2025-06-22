@@ -12,6 +12,8 @@ namespace InkCode.Evaluator
 
             if (args != null)
             {
+                AnalyzeFunctionConstantArgs(functionCallInstruction, args);
+                
                 executor.Function(function, args, line);
             }
 
@@ -28,6 +30,14 @@ namespace InkCode.Evaluator
 
             if (arg != null)
             {
+                if (
+                    assignmentInstruction.Expression is not LiteralExpression
+                    && ExpressionEvaluator.IsConstantExpression(assignmentInstruction.Expression)
+                )
+                {
+                    assignmentInstruction.Expression = new LiteralExpression(arg);
+                }
+
                 executor.HandleAsigne(assignmentInstruction.Name, arg);
             }
         }
@@ -38,6 +48,14 @@ namespace InkCode.Evaluator
 
             if (arg != null)
             {
+                if (
+                    gotoInstruction.Condition is not LiteralExpression
+                    && ExpressionEvaluator.IsConstantExpression(gotoInstruction.Condition)
+                )
+                {
+                    gotoInstruction.Condition = new LiteralExpression(arg);
+                }
+                
                 if (executor.HandleGoto(line, arg))
                 {
                     current = SearchLineIndex(gotoInstruction.LabelLine);

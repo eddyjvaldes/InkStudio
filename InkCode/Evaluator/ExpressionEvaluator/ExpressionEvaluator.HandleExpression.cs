@@ -17,6 +17,22 @@ namespace InkCode.Evaluator
 
                 if (left != null && right != null)
                 {
+                    if (
+                        expression.Left is not LiteralExpression
+                        && IsConstantExpression(expression.Left)
+                    )
+                    {
+                        expression.Left = new LiteralExpression(left);
+                    }
+
+                    if (
+                        expression.Right is not LiteralExpression
+                        && IsConstantExpression(expression.Right)
+                    )
+                    {
+                        expression.Right = new LiteralExpression(right);
+                    }
+                    
                     return executor.Operation(expression.Operation, left, right, line);
                 }
             }
