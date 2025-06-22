@@ -6,7 +6,7 @@
         {
             EngineDebug engineDebug = new();
 
-            engineDebug.DebugInterpreter("Spawn(1 , 1 - 1) \n Color(\"Blu\" + \"e\") \n DrawLine(1, GetActualX(), 4)", 5, 5);
+            engineDebug.DebugInterpreter("Spawn(True, 1 - 1) \n Color(\"Blu\" + \"e\") \n DrawLine(1, GetActualX(), 2)", 5, 5);
         }
     }
 }

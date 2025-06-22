@@ -27,6 +27,16 @@ namespace InkCode.ErrorManager
             Errors.Clear();
         }
 
+        internal int FirstErrorLine()
+        {
+            if (Errors.Count > 0)
+            {
+                return Errors[0].Line;
+            }
+
+            return -1;
+        }
+
         void InsertError(Error error)
         {
             if (Errors.Count == 0)

@@ -6,6 +6,7 @@ namespace InkCode.Evaluator
     internal partial class Interpreter
     {
         readonly List<Instruction> instructions;
+        readonly ErrorReporter errorReporter;
         readonly CanvasController canvasController;
         readonly Executor executor;
         readonly ExpressionEvaluator expressionEvaluator;
@@ -19,6 +20,7 @@ namespace InkCode.Evaluator
         )
         {
             this.instructions = instructions;
+            this.errorReporter = errorReporter;
             canvasController = new(new CanvasState(canvasX, canvasY));
             executor = new(canvasController, errorReporter);
             expressionEvaluator = new(canvasController, errorReporter);
@@ -28,29 +30,30 @@ namespace InkCode.Evaluator
         {
             while (!IsAtEnd())
             {
-                ExecuteInstruction();
+
+                ExecuteInstruction(IsSafeLine());
                 current++;
             }
 
             return canvasController.canvasState.Canvas;
         }
 
-        void ExecuteInstruction()
+        void ExecuteInstruction(bool safe)
         {
             Instruction instruction = instructions[current];
             int line = instructions[current].Line;
 
             if (instruction is FunctionCallInstruction functionCall)
             {
-                HandleFunctionCall(functionCall, line);
+                HandleFunctionCall(functionCall, safe, line);
             }
             else if (instruction is AssignmentInstruction assignment)
             {
-                HandleAssignment(assignment, line);
+                HandleAssignment(assignment, safe, line);
             }
             else if (instruction is GotoInstruction gotoInstruction)
             {
-                HandleGoto(gotoInstruction, line);
+                HandleGoto(gotoInstruction, safe, line);
             }
         }
     }

@@ -5,7 +5,11 @@ namespace InkCode.Evaluator
 {
     internal partial class Interpreter
     {
-        void HandleFunctionCall(FunctionCallInstruction functionCallInstruction, int line)
+        void HandleFunctionCall(
+            FunctionCallInstruction functionCallInstruction,
+            bool safe,
+            int line
+        )
         {
             Token.TokenType function = functionCallInstruction.Function;
             List<object>? args = EvaluateArguments(functionCallInstruction, line);
@@ -13,8 +17,11 @@ namespace InkCode.Evaluator
             if (args != null)
             {
                 AnalyzeFunctionConstantArgs(functionCallInstruction, args);
-                
-                executor.Function(function, args, line);
+
+                if (safe)
+                {
+                    executor.Function(function, args, line);
+                }
             }
 
             if (IsParameterlessFunction(function))
@@ -24,7 +31,7 @@ namespace InkCode.Evaluator
             }
         }
 
-        void HandleAssignment(AssignmentInstruction assignmentInstruction, int line)
+        void HandleAssignment(AssignmentInstruction assignmentInstruction, bool safe, int line)
         {
             object? arg = expressionEvaluator.Evaluate(assignmentInstruction.Expression, line);
 
@@ -38,11 +45,14 @@ namespace InkCode.Evaluator
                     assignmentInstruction.Expression = new LiteralExpression(arg);
                 }
 
-                executor.HandleAsigne(assignmentInstruction.Name, arg);
+                if (safe)
+                {
+                    executor.HandleAsigne(assignmentInstruction.Name, arg);
+                }
             }
         }
 
-        void HandleGoto(GotoInstruction gotoInstruction, int line)
+        void HandleGoto(GotoInstruction gotoInstruction, bool safe, int line)
         {
             object? arg = expressionEvaluator.Evaluate(gotoInstruction.Condition, line);
 
@@ -58,7 +68,10 @@ namespace InkCode.Evaluator
                 
                 if (executor.HandleGoto(line, arg))
                 {
-                    current = SearchLineIndex(gotoInstruction.LabelLine);
+                    if (safe)
+                    {
+                        current = SearchLineIndex(gotoInstruction.LabelLine);
+                    }
                 }
             }
         }

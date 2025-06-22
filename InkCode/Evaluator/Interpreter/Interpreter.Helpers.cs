@@ -10,6 +10,18 @@ namespace InkCode.Evaluator
             return current >= instructions.Count;
         }
 
+        bool IsSafeLine()
+        {
+            int first = errorReporter.FirstErrorLine();
+
+            if (first == -1 || first > instructions[current].Line)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         List<object>? EvaluateArguments(FunctionCallInstruction functionCall, int line)
         {
             List<object> args = [];
