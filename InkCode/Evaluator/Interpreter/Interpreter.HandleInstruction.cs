@@ -1,3 +1,4 @@
+using InkCode.Lexer;
 using InkCode.Parser;
 
 namespace InkCode.Evaluator
@@ -6,12 +7,18 @@ namespace InkCode.Evaluator
     {
         void HandleFunctionCall(FunctionCallInstruction functionCallInstruction, int line)
         {
-
+            Token.TokenType function = functionCallInstruction.Function;
             List<object>? args = EvaluateArguments(functionCallInstruction, line);
 
             if (args != null)
             {
-                executor.Function(functionCallInstruction.Function, args, line);
+                executor.Function(function, args, line);
+            }
+
+            if (IsParameterlessFunction(function))
+            {
+                instructions.RemoveAt(current);
+                current--;
             }
         }
 

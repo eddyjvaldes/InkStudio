@@ -1,3 +1,4 @@
+using InkCode.Lexer;
 using InkCode.Parser;
 
 namespace InkCode.Evaluator
@@ -29,6 +30,24 @@ namespace InkCode.Evaluator
             }
 
             return null;
+        }
+
+        static bool IsParameterlessFunction(Token.TokenType function)
+        {
+            switch (function)
+            {
+
+                case Token.TokenType.GET_ACTUAL_X:
+                case Token.TokenType.GET_ACTUAL_Y:
+                case Token.TokenType.GET_CANVAS_LENGTH:
+                case Token.TokenType.GET_CANVAS_WIDTH:
+                case Token.TokenType.GET_BRUSH_COLOR:
+                case Token.TokenType.GET_BRUSH_SIZE:
+                    return true;
+
+                default:
+                    return false;
+            }
         }
 
         int SearchLineIndex(int line)
