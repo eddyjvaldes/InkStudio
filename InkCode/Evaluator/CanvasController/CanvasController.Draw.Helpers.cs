@@ -34,7 +34,7 @@ namespace InkCode.Evaluator
             {
                 int r = (canvasState.BrushSize - 1) / 2;
 
-                if (IsPositionValidCircle(x, y, r))
+                if (IsPositionValidCircle(r))
                 {
                     if (canvasState.BrushColor != CanvasState.Color.Transparent)
                     {

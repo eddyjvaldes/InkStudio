@@ -15,13 +15,16 @@ namespace InkCode.Evaluator
             return true;
         }
 
-        bool IsPositionValidCircle(int x, int y, int radius)
+        bool IsPositionValidCircle(int radius, int x = 0, int y = 0)
         {
+            int posX = canvasState.positionX + x;
+            int posY = canvasState.positionY + y;
+
             if (
-                IsPositionValid(x - radius, y)
-                && IsPositionValid(x + radius, y)
-                && IsPositionValid(x, y + radius)
-                && IsPositionValid(x, y - radius)
+                IsPositionValid(posX - radius, posY)
+                && IsPositionValid(posX + radius, posY)
+                && IsPositionValid(posX, posY + radius)
+                && IsPositionValid(posX, posY - radius)
             )
             {
                 return true;
@@ -30,11 +33,8 @@ namespace InkCode.Evaluator
             return false;
         }
 
-        bool IsPositionValidRectangle(int x, int y, int width, int height)
+        bool IsPositionValidRectangle(int x, int y, int midWidth, int midHeight)
         {
-            int midWidth = width / 2;
-            int midHeight = height / 2;
-
             if (
                 IsPositionValid(x + midWidth, y)
                 && IsPositionValid(x - midWidth, y)

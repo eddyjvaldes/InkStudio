@@ -36,10 +36,10 @@ text = "Open File"
 script = ExtResource("2_jyhfs")
 
 [node name="run button" type="Button" parent="."]
-offset_left = 275.0
-offset_top = 32.0
-offset_right = 443.0
-offset_bottom = 96.0
+offset_left = 290.0
+offset_top = 36.0
+offset_right = 458.0
+offset_bottom = 100.0
 text = "Run"
 script = ExtResource("3_tbgi4")
 

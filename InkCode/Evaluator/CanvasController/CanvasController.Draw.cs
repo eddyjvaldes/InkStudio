@@ -6,24 +6,23 @@ namespace InkCode.Evaluator
         {
             if (Math.Abs(dirX) <= 1 && Math.Abs(dirY) <= 1 && distance > 0)
             {
-                Draw(canvasState.positionX, canvasState.positionY);
+                int posX = canvasState.positionX;
+                int posY = canvasState.positionY;
 
-                for (int i = 0; i < distance; i++)
+                if (IsPositionValid(posX + dirX * distance, posY + dirY * distance))
                 {
-                    if (Move(dirY, dirX))
+                    for (int i = 0; i <= distance; i++)
                     {
-                        if (!Draw(canvasState.positionX, canvasState.positionY))
+                        if (!Draw(posX + i * dirX, posY + i * dirY))
                         {
                             return false;
                         }
                     }
-                    else
-                    {
-                        return false;
-                    }
-                }
 
-                return true;
+                    Move(dirX, dirY, distance);
+
+                    return true;
+                }
             }
 
             return false;
@@ -31,25 +30,20 @@ namespace InkCode.Evaluator
 
         internal bool DrawCircle(int dirX, int dirY, int radius)
         {
-            if (Math.Abs(dirX) <= 1 && Math.Abs(dirY) <= 1 && radius % 2 != 0)
+            if (Math.Abs(dirX) <= 1 && Math.Abs(dirY) <= 1 && radius > 0)
             {
-                if (Move(dirX, dirY))
+                if (IsPositionValidCircle(radius, dirX, dirY))
                 {
-                    if (IsPositionValidCircle(dirX, dirY, radius))
-                    {
-                        for (int i = -radius; i <= radius; i++)
-                        {
-                            int x = dirX + i;
-                            int circle = (int)Math.Sqrt(radius * radius - i * i);
+                    Move(dirX, dirY - radius);
 
-                            if (!(Draw(x, dirY + circle) && Draw(x, dirY - circle)))
-                            {
-                                return false;
-                            }
-                        }
+                    DrawLine(-1, 1, radius);
+                    DrawLine(1, 1, radius);
+                    DrawLine(1, -1, radius);
+                    DrawLine(-1, -1, radius);
 
-                        return true;
-                    }
+                    Move(0, radius);
+
+                    return true;
                 }
             }
 
@@ -61,31 +55,42 @@ namespace InkCode.Evaluator
             if (
                 Math.Abs(dirX) <= 1
                 && Math.Abs(dirY) <= 1
-                && distance > 0
-                && width > 1
-                && height > 1
+                && distance >= 0
+                && width >= 1
+                && height >= 1
             )
-            {
+            {               
                 int x = canvasState.positionX + dirX * distance;
                 int y = canvasState.positionY + dirY * distance;
 
-                if (IsPositionValidRectangle(x, y, width, height))
+
+
+                if (width % 2 == 0)
                 {
-                    int midHeight = height / 2;
-                    int midWidth = width / 2;
+                    width--;
+                }
 
-                    Move(-midWidth + x, midHeight + y);
+                if (height % 2 == 0)
+                {
+                    height--;
+                }
+                
+                int midWidth = width / 2 + 1;
+                int midHeight = height / 2 + 1;
 
-                    DrawLine(1, 0, 2 * midWidth + 1);
-                    DrawLine(0, -1, 2 * midHeight + 1);
-                    DrawLine(-1, 0, 2 * midWidth + 1);
-                    DrawLine(0, 1, 2 * midHeight + 1);
+                if (IsPositionValidRectangle(x, y, midWidth, midHeight))
+                {
+                    Move(dirX * distance - midHeight, dirY * distance - midHeight);
+
+                    DrawLine(0, 1, 2 * midWidth);
+                    DrawLine(1, 0, 2 * midHeight);
+                    DrawLine(0, -1, 2 * midWidth);
+                    DrawLine(-1, 0, 2 * midHeight);
 
                     Move(midWidth, -midHeight);
 
                     return true;
                 }
-
             }
 
             return false;
