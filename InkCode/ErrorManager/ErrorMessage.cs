@@ -59,6 +59,14 @@ namespace InkCode.ErrorManager
             errorReporter.AddError(line, $"The variable {name} does not exist");
         }
 
+        internal static void ReportGoToExceedsLimitCalls(ErrorReporter errorReporter, int line)
+        {
+            errorReporter.AddError(
+                line,
+                "The expression GoTo exceeds the maximum limit of calls" + "(10 000)"
+            );
+        }
+
         internal static void ReportOutCanvas(ErrorReporter errorReporter, int line)
         {
             errorReporter.AddError(line, "Output of the canvas");

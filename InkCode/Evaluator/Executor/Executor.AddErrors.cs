@@ -23,5 +23,10 @@ namespace InkCode.Evaluator
         {
             ErrorMessage.ReportOutCanvas(errorReporter, line);
         }
+
+        void AddGoToCallsError(int line)
+        {
+            ErrorMessage.ReportGoToExceedsLimitCalls(errorReporter, line);
+        }
     }
 }

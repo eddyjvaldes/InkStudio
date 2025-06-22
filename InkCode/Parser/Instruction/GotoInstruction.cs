@@ -4,6 +4,7 @@ namespace InkCode.Parser
     {
         internal Expression Condition;
         readonly internal int LabelLine;
+        internal int Calls = 0;
 
         internal GotoInstruction(Expression condition, int labelLine, int line) : base(line)
         {

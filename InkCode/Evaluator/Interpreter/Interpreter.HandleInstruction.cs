@@ -66,11 +66,13 @@ namespace InkCode.Evaluator
                     gotoInstruction.Condition = new LiteralExpression(arg);
                 }
                 
-                if (executor.HandleGoto(line, arg))
+                if (executor.HandleGoto(line, gotoInstruction.Calls, arg))
                 {
                     if (safe)
                     {
-                        current = SearchLineIndex(gotoInstruction.LabelLine);
+                        gotoInstruction.Calls++;
+                        
+                        current = SearchLineIndex(gotoInstruction.LabelLine) - 1;
                     }
                 }
             }
