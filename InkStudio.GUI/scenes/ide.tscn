@@ -39,6 +39,7 @@ offset_bottom = 98.0
 text = "Draw"
 
 [node name="Canvas" type="TextureRect" parent="."]
+texture_filter = 1
 offset_left = 664.0
 offset_top = 36.0
 offset_right = 1249.0
