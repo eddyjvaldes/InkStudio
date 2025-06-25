@@ -1,4 +1,5 @@
 using InkCode.ErrorManager;
+using InkCode.Evaluator;
 
 namespace InkCode.Engine
 {
@@ -6,17 +7,23 @@ namespace InkCode.Engine
     {
         readonly ErrorReporter errorReporter = new(errorListener);
 
-        public void RunFile(string path, int canvasX, int canvasY)
+        public CanvasState.Color[,] RunFile(string path, int canvasX, int canvasY)
         {
+            errorReporter.Clear();
             string content = FileContent(path);
-            Run(content, canvasX, canvasY);
+            
+            return Run(content, canvasX, canvasY);
         }
 
-        public void Run(string content, int canvasX, int canvasY)
+        public CanvasState.Color[,] Run(string content, int canvasX, int canvasY)
         {
-            InterpreteSource(content, canvasX, canvasY);
+            errorReporter.Clear();
+
+            CanvasState.Color[,] canvas = InterpreteSource(content, canvasX, canvasY);
 
             ReportErrors();
+
+            return canvas;
         }
 
         void ReportErrors()
