@@ -27,7 +27,7 @@ namespace InkCode.Evaluator
                 {
                     canvasState.Canvas[x, y] = canvasState.BrushColor;
                 }
-                
+
                 return true;
             }
             else
@@ -51,6 +51,28 @@ namespace InkCode.Evaluator
 
                     return true;
                 }
+            }
+
+            return false;
+        }
+
+        bool DrawSymmetricPoints(int px, int py)
+        {
+            int cx = canvasState.positionX;
+            int cy = canvasState.positionY;
+
+            if (
+                Draw(cx + px, cy + py)
+                && Draw(cx - px, cy + py)
+                && Draw(cx + px, cy - py)
+                && Draw(cx - px, cy - py)
+                && Draw(cx + py, cy + px)
+                && Draw(cx - py, cy + px)
+                && Draw(cx + py, cy - px)
+                && Draw(cx - py, cy - px)
+            )
+            {
+                return true;
             }
 
             return false;

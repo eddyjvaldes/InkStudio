@@ -34,6 +34,7 @@ namespace InkCode.Evaluator
             {
                 if (IsPositionValidCircle(radius, dirX, dirY))
                 {
+                    /*
                     Move(dirX, dirY - radius);
 
                     DrawLine(-1, 1, radius);
@@ -42,6 +43,30 @@ namespace InkCode.Evaluator
                     DrawLine(-1, -1, radius);
 
                     Move(0, radius);
+
+                    return true;
+                    */
+
+                    int x = 0;
+                    int y = radius;
+                    int d = 3 - 2 * radius;
+
+                    while (x <= y)
+                    {
+                        DrawSymmetricPoints(x, y);
+
+                        if (d < 0)
+                        {
+                            d += 4 * x + 6;
+                        }
+                        else
+                        {
+                            d += 4 * (x - y) + 10;
+                            y--;
+                        }
+
+                        x++;
+                    }
 
                     return true;
                 }
